@@ -1,0 +1,14 @@
+export UBER_LDAP_UID=$USER
+export UBER_HOME="$HOME/Uber"
+export UBER_OWNER="mandava@uber.com"
+export UBER_LDAP_UID="mandava"
+export VAGRANT_DEFAULT_PROVIDER=aws
+export VAGRANTNAME=daewoo-blackwood-2
+export VAGRANTHOSTNAME="$VAGRANTNAME.dev"
+alias adhoc='ssh adhoc06-sjc1 -t "tmux attach -t mandava || tmux new-session -s mandava"'
+alias appdocker='ssh appdocker668-sjc1 -t "tmux attach -t mandava || tmux new-session -s mandava"'
+alias ceres='ssh appdocker27-sjc1 -t "dockercli exec -u udocker usi-ceres-ceres"'
+alias harmony='ssh appdocker333-sjc1 -t "dockercli exec -u udocker usi-harmony-harmony"'
+alias devbox='ssh $VAGRANTNAME.dev -t "tmux attach -t mandava || tmux new-session -s mandava"'
+alias ubill='ssh appdocker668-sjc1 -t "tmux attach -t mandava || tmux new-session -s mandava"'
+alias sync="boxer sync $VAGRANTNAME $(cat ~/repos-to-sync)"
