@@ -2,7 +2,7 @@
 bindkey -v
 
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
-setopt PROMPT_SUBST ; PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
+setopt PROMPT_SUBST ; PS1='[%{%F{green}%}%n@%m%f %3c%{%F{red}%}$(__git_ps1 " (%s)")%f]\$ '
 
 # Set title to directory or last command
 precmd() { print -Pn "\e]0;%3/\a" }

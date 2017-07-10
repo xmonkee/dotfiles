@@ -15,22 +15,34 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'derekwyatt/vim-scala'
 "Plugin 'https://github.com/neovimhaskell/haskell-vim'
 Plugin 'https://github.com/hynek/vim-python-pep8-indent'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'https://github.com/fatih/vim-go'
 Plugin 'rust-lang/rust.vim'
 Plugin 'https://github.com/jystic/thrift.vim'
+Plugin 'https://github.com/heavenshell/vim-pydocstring'
 
 " Editor Plugins
 Plugin 'https://github.com/vim-scripts/paredit.vim'
 Plugin 'https://github.com/tpope/vim-surround'
 Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
 "Plugin 'https://github.com/scrooloose/syntastic.git'
+"Plugin 'https://github.com/Valloric/YouCompleteMe'
+Plugin 'https://github.com/ervandew/supertab'
+Plugin 'https://github.com/terryma/vim-expand-region'
 Plugin 'https://github.com/godlygeek/tabular'
 Plugin 'https://github.com/wellle/targets.vim.git'
 Plugin 'https://github.com/scrooloose/nerdcommenter'
-Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
+" Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
 Plugin 'https://github.com/tommcdo/vim-exchange.git'
+Plugin 'https://github.com/Shougo/denite.nvim'
+Plugin 'https://github.com/Raimondi/delimitMate'
+
+" Themes
 Plugin 'https://github.com/vim-scripts/up.vim'
 Plugin 'https://github.com/altercation/vim-colors-solarized'
+Plugin 'https://github.com/jdkanani/vim-material-theme'
+Plugin 'https://github.com/blueshirts/darcula'
+Plugin 'https://github.com/morhetz/gruvbox'
 
 " Feature Plugins
 Plugin 'mileszs/ack.vim'
@@ -44,7 +56,6 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 syntax on
 
-set clipboard=unnamedplus
 set softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -59,50 +70,50 @@ set foldlevel=99
 set statusline+=%F\ %l\:%c
 set laststatus=2
 set ruler
-set nu
+set nonu
 set background=dark
-colorscheme solarized
+colorscheme gruvbox
 set hidden "change buffers without saving
 set confirm "ask to save before quitting
 set guioptions-=r
 set guioptions-=L
-set clipboard=unnamed
 set backspace=indent,eol,start "fix backspace
 set hlsearch
-set guifont=Ubuntu\ Mono\ 13
+set guifont=Ubuntu\ Mono\ 12
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 set tabstop=4
-colorscheme up
 
 let mapleader = "\<Space>" "Set space to leader
 
+"Highlight trailing spaces"
+:highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
 "browse through tabs
-noremap <Leader>h :tabp<CR>
-noremap <Leader>l :tabn<CR>
-noremap <Leader>1 1gt
-noremap <Leader>2 2gt
-noremap <Leader>3 3gt
-noremap <Leader>4 4gt
-noremap <Leader>5 5gt
-noremap <Leader>6 6gt
-noremap <Leader>7 7gt
-noremap <Leader>8 8gt
-noremap <Leader>9 9gt
+noremap <Leader>h :tabprev<CR>
+noremap <Leader>l :tabnext<CR>
+noremap <Leader>k :bprev<CR>
+noremap <Leader>j :bnext<CR>
+noremap <Leader>1 :buffer 1<CR>
+noremap <Leader>2 :buffer 2<CR>
+noremap <Leader>3 :buffer 3<CR>
+noremap <Leader>4 :buffer 4<CR>
+noremap <Leader>5 :buffer 5<CR>
+noremap <Leader>6 :buffer 6<CR>
+noremap <Leader>7 :buffer 7<CR>
+noremap <Leader>8 :buffer 8<CR>
+noremap <Leader>9 :buffer 9<CR>
 
 "Leader shortcuts
-noremap <Leader>w :w<CR>
+noremap <Leader>w :wa<CR>
 noremap <Leader>d :bd<CR>
 noremap <Leader>q :qa<CR>
 noremap <Leader>wq :wqa<CR>
-noremap <Leader>e :e 
-
-"Use <Leader> k to move rest of line up
-noremap <Leader>k DO<Esc>p==
-"Use <Leader> j to move rest of line down
-noremap <Leader>j Do<Esc>p==
+noremap <Leader>e :e
 
 "Use <Leader> y to copy file path in normal mode
 noremap <Leader>y :let @+ = expand("%")<CR>
@@ -121,8 +132,6 @@ cnoremap <C-v> <C-R>+
 vnoremap <C-c> "+y
 "Copy whole line in normal mode
 nnoremap <C-c> "+yy
-" Select all
-nnoremap <C-a> ggVG
 
 "Faster scrolling
 noremap <C-j> }
@@ -175,7 +184,6 @@ noremap <C-n> :NERDTreeToggle<CR>
 "==========================="
 
 "======== Vim Airline ======"
-"let g:airline#extensions#tabline#enabled = 1
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -191,37 +199,61 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tagbar#enabled = 0
+
+let g:airline#extensions#eclim#enabled = 1
 "==========================="
 
 "=======ctrlP=============="
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<c-t>'],
-    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-    \ }
-noremap <C-SPACE> :CtrlPBuffer<CR>
+"noremap <C-SPACE> :CtrlPBuffer<CR>
+
+"=========Denite==========="
+noremap <C-P> :Denite buffer file_rec <CR>
+noremap <C-F> :Denite line <CR>
+call denite#custom#map(
+            \ 'insert',
+            \ '<CR>',
+            \ '<denite:enter_mode:normal>',
+            \ 'noremap'
+            \)
+call denite#custom#map(
+            \ 'normal',
+            \ '<ESC>',
+            \ '<denite:quit>',
+            \ 'noremap'
+            \)
 
 "=======Rusty Tags=========="
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
 autocmd BufWrite *.rs :silent! exec "!rusty-tags vi --quiet --start-dir=" . expand('%:p:h') . "&"
 "==========================="
 
+"===========Eclim==========="
+autocmd FileType java nnoremap <silent> <buffer> <cr> :JavaSearch<cr>
+autocmd FileType java nnoremap <silent> <buffer> <c-cr> :JavaCorrect<cr>
+autocmd FileType java nnoremap <silent> <buffer> <leader>s :JavaDocSearch -x declarations<cr>
+autocmd FileType java nnoremap <silent> <buffer> <leader>i :JavaImport<cr>
+autocmd FileType java nnoremap <silent> <buffer> <leader>v :Validate<cr> :JavaImportOrganize<cr> :JavaFormat<cr>
+"=========================="
+
+"===========YCM============="
+let g:ycm_autoclose_preview_window_after_completion = 1
+set splitbelow
+"==========================="
+
+"===========Expand Tab======"
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+"==========================="
+
+"==========Pydocstring======="
+nmap <silent> <C-c> <Plug>(pydocstring)
+"==========================="
+
 "=======Shortcuts=========="
 iab cfor for(i = 0; i < ; ++i)
+iab gfor for i := 0; i < ; ++i
 iab cforj for(j = 0; j < ; ++j)
-iab cmain 
-\<CR>#include <stdio.h>
-\<CR>#include <stdlib.h>
-\<CR>
-\<CR>int main(int argc, char **argv){
-\<CR>return 0;
-\<CR>}
-
-iab cstruct 
-\<CR>typedef struct {
-\<CR>
-\<CR>} T;
-
 "=========================="
 
 "=====Open vimwiki vlinks locally====="
@@ -245,4 +277,3 @@ function! VimwikiLinkHandler(link)
     endif
 endfunction
 "=========================="
-

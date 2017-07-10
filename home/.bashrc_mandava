@@ -15,7 +15,11 @@ fi
 
 alias socks5='ssh -D 8123 -f -C -q -N $UPVEST && firefox -private &'
 alias xopen='xdg-open'
-alias vim=gvim
+alias cc='gcalcli --calendar mandava@uber.com --calendar mayankmandava@gmail.com --calendar "Me and Ash" --calendar "money-payements-efficiency" agenda'
 function vimgit {
     vim $(git diff $1 --name-only)
+}
+
+function tm {
+    tmux attach -t $1 || tmux new-session -s $1
 }

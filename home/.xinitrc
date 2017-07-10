@@ -1,3 +1,9 @@
-# xmodmap "$HOME/.Xmodmap"
-setxkbmap -option ctrl:swapcaps
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+#!/bin/sh
+
+# /etc/X11/xinit/xinitrc
+#
+# global xinitrc file, used by all X sessions started by xinit (startx)
+
+# invoke global X session script
+. ~/.xprofile
+exec dwm

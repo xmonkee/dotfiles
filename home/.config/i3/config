@@ -6,13 +6,13 @@ font pango:monospace 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Shift+Return exec st
+bindsym $mod+Shift+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+p exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -24,23 +24,11 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
 bindsym $mod+v split h
@@ -49,21 +37,21 @@ bindsym $mod+v split h
 bindsym $mod+s split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+z fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+equal layout stacking
-bindsym $mod+t layout tabbed
-bindsym $mod+space layout toggle split
+bindsym $mod+d layout stacking
+bindsym $mod+m layout tabbed
+bindsym $mod+t layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+f focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+p focus parent
+bindsym $mod+u focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -93,73 +81,17 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
-#bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Control+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-msg exit"
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-########### Additional Configs ###############
-
-# Assign apps to workspaces
-assign [class="Spotify|spotify"] 9
-
-############ Startup
-
-# Daemons
-exec_always --no-startup-id "feh --bg-center $HOME/.config/i3/lines.png"
-exec_always --no-startup-id "setxkbmap -option ctrl:swapcaps"
-#exec --no-startup-id "unity-settings-deamon"
-exec --no-startup-id "xautolock -time 5 -locker $HOME/.config/i3/lock"
-exec --no-startup-id "xss-lock -- $HOME/.config/i3/lock"
-exec --no-startup-id "xinput set-prop 'DLL06E5:01 06CB:7A13 Touchpad' 'libinput Natural Scrolling Enabled' 1"
-exec --no-startup-id "enpass"
-exec --no-startup-id "caffeine"
-exec --no-startup-id "~/.pia_manager/pia_manager/run.sh --startup"
-exec --no-startup-id "compton"
-
-# Indicators and helpers
-exec --no-startup-id "caffeine-indicator"
-exec --no-startup-id "nm-applet"
-exec --no-startup-id "blueman-applet"
-exec --no-startup-id "volti"
-exec --no-startup-id "indicator-sound-switcher"
-exec --no-startup-id "redshift-gtk"
-exec --no-startup-id "clipit"
-exec --no-startup-id "dropbox start"
-exec --no-startup-id "albert"
-
-# Desktop apps
-exec --no-startup-id "google-chrome"
-exec --no-startup-id "spotify"
+# Startup Script
+exec --no-startup-id "$HOME/.config/scripts/autostart.sh"
 
 bar {
-  font pango:DejaVu Sans Mono, Awesome 8
+  font pango:DejaVu Sans Mono 8
   status_command i3status
   position top
   colors {
@@ -168,43 +100,6 @@ bar {
     focused_workspace #555555 #555555 #FFFFFF
     inactive_workspace #282828 #282828 #AAAAAA
   }
-}
-
-bindsym $mod+Shift+o exec "~/.config/i3/lock"
-bindsym $mod+Shift+s exec "unset XDG_CURRENT_DESKTOP; unity-control-center"
-bindsym $mod+Shift+f exec "pcmanfm"
-bindsym $mod+Shift+t exec "shutter -s"
-bindsym $mod+Shift+p exec "pavucontrol"
-bindsym $mod+Shift+u exec "alsactl restore"
-bindsym $mod+Shift+w exec "sudo systemctl restart NetworkManager.service"
-bindsym $mod+Shift+m exec "autorandr --change"
-
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ +5%" 
-bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-volume @DEFAULT_SINK@ -5%"
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
-
-# Media player controls
-bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause" 
-
-# Monitor mode
-bindsym $mod+m mode "$mode_monitor"
-set $mode_monitor System (m) mirror, (W) work+lap, (w) work, (H) home+lap, (h) home, (l) laptop
-mode "$mode_monitor" {
-    bindsym m       exec --no-startup-id ~/.config/i3/randr mirror,        mode "default"
-    bindsym Shift+w exec --no-startup-id ~/.config/i3/randr work-both,     mode "default"
-    bindsym w       exec --no-startup-id ~/.config/i3/randr work-external, mode "default"
-    bindsym Shift+h exec --no-startup-id ~/.config/i3/randr home-both,     mode "default"
-    bindsym h       exec --no-startup-id ~/.config/i3/randr home-external, mode "default"
-    bindsym l       exec --no-startup-id ~/.config/i3/randr laptop-only,   mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
 }
 
 # Exit mode
@@ -223,8 +118,6 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 
-for_window [class="feh|enpass|Enpass|mpv|Pcmanfm|Blueman-manager|zoom|Pavucontrol"] floating enable
-for_window [class="Shutter"] floating enable
 for_window [title="Preferences$"] floating enable
 for_window [window_role="messages"] floating enable
 for_window [window_role="pop-up"] floating enable
