@@ -8,10 +8,10 @@ export VAGRANTNAME=daewoo-blackwood-2
 export VAGRANTHOSTNAME="$VAGRANTNAME.dev"
 alias adhoc='ussh adhoc06-sjc1 -t "tmux attach -t mandava || tmux new-session -s mandava"'
 alias artifactory='ussh -L 4587:artifactory.uber.internal:4587 adhoc06-sjc1'
-alias appdocker='ssh appdocker1100-sjc1 -t "tmux attach -t mandava || tmux new-session -s mandava"'
+alias appdocker='ssh appdocker99-sjc1 -t "tmux attach -t mandava || tmux new-session -s mandava"'
 alias ceres='ssh appdocker27-sjc1 -t "dockercli exec -u udocker usi-ceres-ceres"'
 alias harmony='ssh appdocker333-sjc1 -t "dockercli exec -u udocker usi-harmony-harmony"'
 alias devbox='ssh $VAGRANTNAME.dev -t "tmux attach -t mandava || tmux new-session -s mandava"'
-alias ubill='ssh appdocker668-sjc1 -t "tmux attach -t mandava || tmux new-session -s mandava"'
+alias ubill='ssh appdocker154-sjc1 -t "tmux attach -t mandava || tmux new-session -s mandava"'
 alias sync="boxer sync $VAGRANTNAME $(cat ~/repos-to-sync)"
 source /home/mandava/.local/bin/virtualenvwrapper.sh

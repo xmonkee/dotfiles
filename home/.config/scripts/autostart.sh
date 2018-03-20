@@ -1,5 +1,6 @@
 #!/bin/sh
-feh --bg-scale $HOME/wallpaper
+
+feh --bg-center $HOME/wallpaper
 xbindkeys_autostart
 setxkbmap -option ctrl:swapcaps &
 pgrep xautolock || xautolock -time 5 -locker $HOME/.config/i3/lock &
@@ -15,3 +16,4 @@ killall clipit ; clipit &
 dropbox start &
 #pgrep indicator-sound || indicator-sound-switcher &
 ~/.pia_manager/pia_manager/run.sh --startup &
+

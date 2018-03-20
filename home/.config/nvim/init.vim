@@ -1,61 +1,66 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+" Start plug
+call plug#begin('~/.vim/plugged')
 
 
 " Langauge Plugins
-"Plugin 'https://github.com/lambdatoast/elm.vim'
-"Plugin 'https://github.com/wting/rust.vim'
-"Plugin 'https://github.com/wlangstroth/vim-racket.git'
-"Plugin 'git://github.com/tpope/vim-fireplace.git'
-"Plugin 'derekwyatt/vim-scala'
-"Plugin 'https://github.com/neovimhaskell/haskell-vim'
-Plugin 'https://github.com/hynek/vim-python-pep8-indent'
-Plugin 'nsf/gocode', {'rtp': 'vim/'}
-Plugin 'https://github.com/fatih/vim-go'
-Plugin 'rust-lang/rust.vim'
-Plugin 'https://github.com/jystic/thrift.vim'
-Plugin 'https://github.com/heavenshell/vim-pydocstring'
+"Plug 'https://github.com/lambdatoast/elm.vim'
+"Plug 'https://github.com/wting/rust.vim'
+"Plug 'https://github.com/wlangstroth/vim-racket.git'
+"Plug 'git://github.com/tpope/vim-fireplace.git'
+"Plug 'derekwyatt/vim-scala'
+"Plug 'https://github.com/neovimhaskell/haskell-vim'
+Plug 'https://github.com/hynek/vim-python-pep8-indent'
+"Plug 'nsf/gocode', {'rtp': 'vim/'}
+"Plug 'https://github.com/fatih/vim-go'
+"Plug 'rust-lang/rust.vim'
+"Plug 'https://github.com/jystic/thrift.vim'
+Plug 'https://github.com/heavenshell/vim-pydocstring'
+"Plug 'https://github.com/flowtype/vim-flow.git'
+"Plug 'posva/vim-vue'
 
-" Editor Plugins
-Plugin 'https://github.com/vim-scripts/paredit.vim'
-Plugin 'https://github.com/tpope/vim-surround'
-Plugin 'https://github.com/kien/rainbow_parentheses.vim.git'
-"Plugin 'https://github.com/scrooloose/syntastic.git'
-"Plugin 'https://github.com/Valloric/YouCompleteMe'
-Plugin 'https://github.com/ervandew/supertab'
-Plugin 'https://github.com/terryma/vim-expand-region'
-Plugin 'https://github.com/godlygeek/tabular'
-Plugin 'https://github.com/wellle/targets.vim.git'
-Plugin 'https://github.com/scrooloose/nerdcommenter'
-" Plugin 'https://github.com/ctrlpvim/ctrlp.vim'
-Plugin 'https://github.com/tommcdo/vim-exchange.git'
-Plugin 'https://github.com/Shougo/denite.nvim'
-Plugin 'https://github.com/Raimondi/delimitMate'
+" Editor Plugs
+Plug 'easymotion/vim-easymotion'
+Plug 'https://github.com/vim-scripts/paredit.vim'
+Plug 'https://github.com/tpope/vim-surround'
+Plug 'https://github.com/kien/rainbow_parentheses.vim.git'
+"Plug 'https://github.com/scrooloose/syntastic.git'
+"Plug 'https://github.com/Valloric/YouCompleteMe'
+Plug 'https://github.com/ervandew/supertab'
+Plug 'https://github.com/terryma/vim-expand-region'
+Plug 'https://github.com/godlygeek/tabular'
+Plug 'https://github.com/wellle/targets.vim.git'
+Plug 'https://github.com/scrooloose/nerdcommenter'
+" Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+Plug 'https://github.com/tommcdo/vim-exchange.git'
+Plug 'https://github.com/Raimondi/delimitMate'
 
 " Themes
-Plugin 'https://github.com/vim-scripts/up.vim'
-Plugin 'https://github.com/altercation/vim-colors-solarized'
-Plugin 'https://github.com/jdkanani/vim-material-theme'
-Plugin 'https://github.com/blueshirts/darcula'
-Plugin 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/vim-scripts/up.vim'
+Plug 'https://github.com/altercation/vim-colors-solarized'
+Plug 'https://github.com/jdkanani/vim-material-theme'
+Plug 'https://github.com/blueshirts/darcula'
+Plug 'https://github.com/morhetz/gruvbox'
 
-" Feature Plugins
-Plugin 'mileszs/ack.vim'
-Plugin 'https://github.com/scrooloose/nerdtree'
-Plugin 'https://github.com/bling/vim-airline'
-Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/vimwiki/vimwiki.git'
-"Plugin 'https://github.com/fholgado/minibufexpl.vim'
+" Feature Plugs
+"Plug 'mileszs/ack.vim'
+Plug 'https://github.com/scrooloose/nerdtree'
+Plug 'https://github.com/bling/vim-airline'
+Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+"Plug 'https://github.com/vimwiki/vimwiki.git'
+"Plug 'https://github.com/fholgado/minibufexpl.vim'
 
-call vundle#end()            " required
+" Initialize plugin system
+call plug#end()
+
 filetype plugin indent on    " required
 syntax on
 
+set colorcolumn=110
 set softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -72,14 +77,14 @@ set laststatus=2
 set ruler
 set nonu
 set background=dark
-colorscheme gruvbox
+silent! colorscheme gruvbox
 set hidden "change buffers without saving
 set confirm "ask to save before quitting
 set guioptions-=r
 set guioptions-=L
 set backspace=indent,eol,start "fix backspace
 set hlsearch
-set guifont=Ubuntu\ Mono\ 12
+set guifont=Monaco:h14
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
@@ -98,15 +103,15 @@ noremap <Leader>h :tabprev<CR>
 noremap <Leader>l :tabnext<CR>
 noremap <Leader>k :bprev<CR>
 noremap <Leader>j :bnext<CR>
-noremap <Leader>1 :buffer 1<CR>
-noremap <Leader>2 :buffer 2<CR>
-noremap <Leader>3 :buffer 3<CR>
-noremap <Leader>4 :buffer 4<CR>
-noremap <Leader>5 :buffer 5<CR>
-noremap <Leader>6 :buffer 6<CR>
-noremap <Leader>7 :buffer 7<CR>
-noremap <Leader>8 :buffer 8<CR>
-noremap <Leader>9 :buffer 9<CR>
+"noremap <Leader>1 :buffer 1<CR>
+"noremap <Leader>2 :buffer 2<CR>
+"noremap <Leader>3 :buffer 3<CR>
+"noremap <Leader>4 :buffer 4<CR>
+"noremap <Leader>5 :buffer 5<CR>
+"noremap <Leader>6 :buffer 6<CR>
+"noremap <Leader>7 :buffer 7<CR>
+"noremap <Leader>8 :buffer 8<CR>
+"noremap <Leader>9 :buffer 9<CR>
 
 "Leader shortcuts
 noremap <Leader>w :wa<CR>
@@ -132,6 +137,8 @@ cnoremap <C-v> <C-R>+
 vnoremap <C-c> "+y
 "Copy whole line in normal mode
 nnoremap <C-c> "+yy
+"Remap C-v for block select
+nnoremap <C-a> <C-v>
 
 "Faster scrolling
 noremap <C-j> }
@@ -148,12 +155,12 @@ au TabLeave * let g:lasttab = tabpagenr()
 
 
 "===========for Ag.vim================"
-if executable('ag') " use ag instead of ack
-  let g:ackprg = 'ag --vimgrep'
-endif
-noremap <Leader>f :AckFile! 
-noremap <Leader>/ :Ack! 
-noremap <Leader>* yiw<Esc>:Ack! <C-R>"<CR>
+"if executable('ag') " use ag instead of ack
+  "let g:ackprg = 'ag --vimgrep'
+"endif
+"noremap <Leader>f :AckFile! 
+"noremap <Leader>/ :Ack! 
+"noremap <Leader>* yiw<Esc>:Ack! <C-R>"<CR>
 "======================================"
 
 
@@ -184,16 +191,16 @@ noremap <C-n> :NERDTreeToggle<CR>
 "==========================="
 
 "======== Vim Airline ======"
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+"if !exists('g:airline_symbols')
+    "let g:airline_symbols = {}
+"endif
 " unicode symbols
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.whitespace = 'Ξ'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '◀'
+"let g:airline_symbols.linenr = '␊'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tabs = 1
@@ -207,21 +214,44 @@ let g:airline#extensions#eclim#enabled = 1
 "=======ctrlP=============="
 "noremap <C-SPACE> :CtrlPBuffer<CR>
 
+"=========FZF=============="
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+noremap <C-P> :GFiles<CR>
+noremap <Leader>/ :Ag 
+noremap <Leader>* yiw<Esc>:Ag <C-R>"<CR>
+noremap <C-F> :Lines<CR>
+noremap <Leader>t :Tags 
+"============================"
+
+
 "=========Denite==========="
-noremap <C-P> :Denite buffer file_rec <CR>
-noremap <C-F> :Denite line <CR>
-call denite#custom#map(
-            \ 'insert',
-            \ '<CR>',
-            \ '<denite:enter_mode:normal>',
-            \ 'noremap'
-            \)
-call denite#custom#map(
-            \ 'normal',
-            \ '<ESC>',
-            \ '<denite:quit>',
-            \ 'noremap'
-            \)
+"noremap <C-P> :Denite buffer file_rec <CR>
+"noremap <C-F> :Denite line <CR>
+"call denite#custom#map(
+            "\ 'insert',
+            "\ '<CR>',
+            "\ '<denite:enter_mode:normal>',
+            "\ 'noremap'
+            "\)
+"call denite#custom#map(
+            "\ 'normal',
+            "\ '<ESC>',
+            "\ '<denite:quit>',
+            "\ 'noremap'
+            "\)
 
 "=======Rusty Tags=========="
 autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/,$RUST_SRC_PATH/rusty-tags.vi
@@ -277,3 +307,6 @@ function! VimwikiLinkHandler(link)
     endif
 endfunction
 "=========================="
+
+"=============Flow type===="
+let g:flow#enable = 1

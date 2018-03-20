@@ -2,18 +2,30 @@
 bindkey -v
 
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
-setopt PROMPT_SUBST ; PS1='[%{%F{green}%}%n@%m%f %3c%{%F{red}%}$(__git_ps1 " (%s)")%f]\$ '
+setopt PROMPT_SUBST ; PS1='[%{%F{green}%}%n@%m%f %3c%{%F{red}%}$(__git_ps1 " (%s)")%f]'
+PS1="$PS1"$'\n'"\$ "
 
 # Set title to directory or last command
-precmd() { print -Pn "\e]0;%3/\a" }
-preexec() { echo -ne "\e]2; $(history $HISTCMD | cut -b7- ) \a"  }
+# precmd() { print -Pn "\e]0;%3/\a" }
+# preexec() { echo -ne "\e]2; $(history $HISTCMD | cut -b7- ) \a"  }
 
 # pass completion
 fpath=(~/.zsh-completions $fpath)
 
 source ~/.bashrc_mandava
-source ~/.bashrc_uber
-source ~/.bashrc_secrets
+
+if [[ -a ~/.bashrc.benchling.before ]]; then
+    source ~/.bashrc.benchling.before
+fi
+
+# Don't modify, this file is synced
+if [[ -a ~/.bashrc.benchling ]]; then
+	source ~/.bashrc.benchling
+fi
+
+if [[ -a ~/.bashrc.benchling.after ]]; then
+    source ~/.bashrc.benchling.after
+fi
 
 #{{{ fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
