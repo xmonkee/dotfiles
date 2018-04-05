@@ -1,6 +1,9 @@
 # Vim mode
 bindkey -v
 
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM=verbose,name
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 setopt PROMPT_SUBST ; PS1='[%{%F{green}%}%n@%m%f %3c%{%F{red}%}$(__git_ps1 " (%s)")%f]'
 PS1="$PS1"$'\n'"\$ "
