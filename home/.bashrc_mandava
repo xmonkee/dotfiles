@@ -28,3 +28,6 @@ gl() {
     done
 }
 
+gil() {
+    git log --graph --abbrev-commit --stat --summary -C --decorate --date=local
+}

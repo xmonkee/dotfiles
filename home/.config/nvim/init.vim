@@ -20,6 +20,8 @@ Plug 'https://github.com/hynek/vim-python-pep8-indent'
 Plug 'https://github.com/heavenshell/vim-pydocstring'
 "Plug 'https://github.com/flowtype/vim-flow.git'
 "Plug 'posva/vim-vue'
+Plug 'https://github.com/pedrohdz/vim-yaml-folds'
+Plug 'https://github.com/leafgarland/typescript-vim'
 
 " Editor Plugs
 Plug 'easymotion/vim-easymotion'
