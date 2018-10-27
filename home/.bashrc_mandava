@@ -3,12 +3,18 @@
 # alias pbpaste='xclip -selection clipboard -o'
 
 export PATH=$HOME/.local/bin:$PATH
+export PATH=/Users/mayankmandava/.nimble/bin:$PATH
+export EDITOR=vim
+export GOROOT=$HOME/.local/go
+export PATH=$GOROOT/bin:$PATH
+export GOPATH=$HOME/Go
 
 alias sed=gsed
 alias ls='ls -G'
 alias killp='rm **/*.pyc'
 # alias socks5='ssh -D 8123 -f -C -q -N $UPVEST && firefox -private &'
 alias cc='gcalcli --calendar mandava@uber.com --calendar mayankmandava@gmail.com --calendar "Me and Ash" --calendar "mayank@benchling.com" agenda'
+alias jj="jira ls -q 'project = BNCH AND Sprint = \"Multi-Tenancy Class B Q1b.3\" ORDER BY Rank ASC'"
 function tm {
     tmux attach -t $1 || tmux new-session -s $1
 }

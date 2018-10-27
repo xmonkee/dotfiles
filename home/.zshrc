@@ -1,12 +1,30 @@
 # Vim mode
 bindkey -v
 
+get_ps1_pre() {
+    if [[ -n "${VIRTUAL_ENV}" ]]; then
+        prefix="("$(basename "${VIRTUAL_ENV}")") "
+    else
+        prefix=""
+    fi
+    echo "%F{magenta}~%f $prefix%F{cyan}%n@%m%f %F{yellow}[%3c]%f"
+}
+
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM=verbose,name
+GIT_PS1_SHOWUPSTREAM=verbose
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_DESCRIBE_STYLE=branch
+GIT_PS1_SHOWCOLORHINTS=1
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
-setopt PROMPT_SUBST ; PS1='[%{%F{green}%}%n@%m%f %3c%{%F{red}%}$(__git_ps1 " (%s)")%f]'
-PS1="$PS1"$'\n'"\$ "
+setopt PROMPT_SUBST
+NEWLINE=$'\n'
+PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"
+PS1_POST="%0(?..%F{red} %?%f)" # exit status
+PS1_POST+="%1(j.%F{green} %j%f.)" # suspended jobs
+PS1_POST+=" %F{magenta}~%f"$NEWLINE"$ "
+precmd () { __git_ps1 "$(get_ps1_pre)" "$PS1_POST" " 〈 %s 〉" }
+
 
 # Set title to directory or last command
 # precmd() { print -Pn "\e]0;%3/\a" }
@@ -15,7 +33,13 @@ PS1="$PS1"$'\n'"\$ "
 # pass completion
 fpath=(~/.zsh-completions $fpath)
 
-source ~/.bashrc_mandava
+if [[ -a ~/.bashrc_mandava ]]; then
+    source ~/.bashrc_mandava
+fi
+
+if [[ -a ~/.bashrc.wsl ]]; then
+    source ~/.bashrc.wsl
+fi
 
 if [[ -a ~/.bashrc.benchling.before ]]; then
     source ~/.bashrc.benchling.before
@@ -34,7 +58,7 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 ## Use ag for fzf completion
 _fzf_compgen_path() {
-      ag -g "" "$1"
+      ag --hidden --ignore .git -g "" "$1"
   }
 #}}}
 

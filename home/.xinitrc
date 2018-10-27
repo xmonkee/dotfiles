@@ -6,4 +6,4 @@
 
 # invoke global X session script
 . ~/.xprofile
-exec dwm
+exec gnome-session

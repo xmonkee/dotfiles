@@ -20,8 +20,12 @@ Plug 'https://github.com/hynek/vim-python-pep8-indent'
 Plug 'https://github.com/heavenshell/vim-pydocstring'
 "Plug 'https://github.com/flowtype/vim-flow.git'
 "Plug 'posva/vim-vue'
+"keys
 Plug 'https://github.com/pedrohdz/vim-yaml-folds'
 Plug 'https://github.com/leafgarland/typescript-vim'
+au BufReadPost *.rkt,*.rktl set filetype=scheme
+
+
 
 " Editor Plugs
 Plug 'easymotion/vim-easymotion'
@@ -45,14 +49,13 @@ Plug 'https://github.com/altercation/vim-colors-solarized'
 Plug 'https://github.com/jdkanani/vim-material-theme'
 Plug 'https://github.com/blueshirts/darcula'
 Plug 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/dracula/vim'
 
 " Feature Plugs
 "Plug 'mileszs/ack.vim'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/bling/vim-airline'
 Plug 'https://github.com/tpope/vim-fugitive'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 "Plug 'https://github.com/vimwiki/vimwiki.git'
 "Plug 'https://github.com/fholgado/minibufexpl.vim'
 
@@ -79,7 +82,7 @@ set laststatus=2
 set ruler
 set nonu
 set background=dark
-silent! colorscheme gruvbox
+silent! colorscheme dracula
 set hidden "change buffers without saving
 set confirm "ask to save before quitting
 set guioptions-=r
