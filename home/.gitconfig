@@ -1,0 +1,37 @@
+[user]
+	name = Mayank Mandava
+	email = mayank.mandava@afterpay.com
+[core]
+    editor = vim
+[alias]
+    co = checkout
+    d = diff
+    rd = "!sh -c 'git fetch; git rebase origin/master'"
+    ri = rebase -i origin/master
+    ra = rebase --continue
+    ca = commit --amend --no-edit
+    caa = "!sh -c 'git add . && git commit --amend --no-edit'"
+    l = log --stat -C --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset\n\n  %C(bold cyan)%s%Creset\n'
+    lf = log --stat -C --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset\n\n  %C(bold cyan)%s\n\n%b%Creset\n'
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    ld = "!sh -c 'git lg --left-right --cherry-pick HEAD...origin/master'"
+    lu = "!sh -c 'git lg --left-right @{u}...HEAD'"
+    lr = "!f() { git lg --cherry-pick --left-right origin/master.. \"$1\"...HEAD; }; f"
+    s = "!sh -c 'git l -1 && echo && git status -sb && echo'"
+    ad = "!arc diff HEAD^"
+    am = "!arc amend"
+;[sequence]
+    ;editor = rebase-editor
+[gui]
+    recentrepo = /Users/mayank/aurelia
+[guitool "Rebase interactive"]
+    cmd = EDITOR=code git rebase -i $REVISION
+    revprompt = yes
+[pager]
+       diff = diff-so-fancy | less --tabs=1,5 -RFX
+       show = diff-so-fancy | less --tabs=1,5 -RFX
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
