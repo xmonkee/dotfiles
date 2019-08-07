@@ -1,0 +1,29 @@
+[global_config]
+  focus = mouse
+  title_font = Noto Sans Mono CJK TC Bold 9
+[keybindings]
+  go_up = <Super>k
+  go_down = <Super>j
+  go_left = <Super>h
+  go_right = <Super>l
+  split_horiz = <Shift><Super>d
+  split_vert = <Super>d
+  next_tab = <Shift><Super>l
+  prev_tab = <Shift><Super>h
+[profiles]
+  [[default]]
+    background_color = "#282828"
+    cursor_color = "#aaaaaa"
+    font = Ubuntu Mono 18
+    foreground_color = "#ebdbb2"
+    show_titlebar = False
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+[plugins]

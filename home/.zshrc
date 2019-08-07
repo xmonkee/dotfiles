@@ -1,6 +1,7 @@
 # Vim mode
 bindkey -v
 
+source $HOME/.git-prompt.sh
 get_ps1_pre() {
     if [[ -n "${VIRTUAL_ENV}" ]]; then
         prefix="("$(basename "${VIRTUAL_ENV}")") "
@@ -33,32 +34,15 @@ precmd () { __git_ps1 "$(get_ps1_pre)" "$PS1_POST" " 〈 %s 〉" }
 # pass completion
 fpath=(~/.zsh-completions $fpath)
 
-if [[ -a ~/.bashrc_mandava ]]; then
-    source ~/.bashrc_mandava
-fi
-
-if [[ -a ~/.bashrc.wsl ]]; then
-    source ~/.bashrc.wsl
-fi
-
-if [[ -a ~/.bashrc.benchling.before ]]; then
-    source ~/.bashrc.benchling.before
-fi
-
-# Don't modify, this file is synced
-if [[ -a ~/.bashrc.benchling ]]; then
-	source ~/.bashrc.benchling
-fi
-
-if [[ -a ~/.bashrc.benchling.after ]]; then
-    source ~/.bashrc.benchling.after
+if [[ -a ~/.bashrc ]]; then
+    source ~/.bashrc
 fi
 
 #{{{ fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-## Use ag for fzf completion
+## Use rg for fzf completion
 _fzf_compgen_path() {
-      ag --hidden --ignore .git -g "" "$1"
+      rg --hidden --ignore .git -g "" "$1"
   }
 #}}}
 

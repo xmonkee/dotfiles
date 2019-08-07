@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os
+import os, sys
 
 
 def install(home, for_home=True):
@@ -17,9 +17,7 @@ def install(home, for_home=True):
         newroot = root.replace(home, base_path)
         for f in files:
             # Path to original copy
-            filepath = os.path.realpath(
-                os.path.join(root, f)
-            )
+            filepath = os.path.realpath(os.path.join(root, f))
             # Path to link
             newpath = os.path.join(newroot, f)
 
@@ -42,10 +40,12 @@ def install(home, for_home=True):
                 if do_for_all_existing:
                     answer = do_for_all_existing
                 else:
-                    answer = raw_input('File {} already exists. Wat do? [s]kip/[b]ackup/[d]elete (use Caps for All): '.format(newpath))
+                    answer = raw_input('File {} already exists.\n[s]kip, [b]ackup, [d]elete or [q]uit (use Caps for All): '.format(newpath))
                     if answer in 'SBD':
                         answer = answer.lower()
                         do_for_all_existing = answer
+                    if answer in 'Qq':
+                        sys.exit()
 
                 if answer == 'b':
                     os.rename(newpath, newpath + ".back")
@@ -65,4 +65,3 @@ def ask(question):
 
 if __name__ == '__main__':
     install('./home', True)
-    install('./slash', False)
