@@ -34,7 +34,7 @@
         "hPanePosition": 524, 
         "isFirstRun": true
     }, 
-    "userCodeDir": null, 
+    "userCodeDir": "/home/xmonkee/.config/autokey/common", 
     "version": "0.95.7", 
     "configHotkey": {
         "hotKey": "k", 
