@@ -90,7 +90,7 @@ set guioptions-=r
 set guioptions-=L
 set backspace=indent,eol,start "fix backspace
 set hlsearch
-set guifont=Monaco:h14
+set guifont=Menlo:h14
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
@@ -206,13 +206,13 @@ noremap <C-n> :NERDTreeToggle<CR>
 "let g:airline_symbols.paste = 'ρ'
 "let g:airline_symbols.whitespace = 'Ξ'
 
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tagbar#enabled = 0
 
-let g:airline#extensions#eclim#enabled = 1
+let g:airline#extensions#eclim#enabled = 0
 "==========================="
 
 "=======ctrlP=============="
