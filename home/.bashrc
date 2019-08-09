@@ -13,6 +13,7 @@ export PATH=$GOPATH/bin:$PATH
 alias sed=gsed
 alias ls='ls -G'
 alias g="gcc -Wall -Wextra -Wstrict-prototypes -pedantic"
+alias t="tcc -Wall -Wextra -Wstrict-prototypes -pedantic -run"
 # alias socks5='ssh -D 8123 -f -C -q -N $UPVEST && firefox -private &'
 
 export NVM_DIR="$HOME/.nvm"
