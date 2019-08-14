@@ -1,4 +1,4 @@
-terminals = ["guake", "terminal", "terminator"]
+terminals = ["guake", "terminal", "terminator", "xfce4-terminal"]
 
 
 def is_terminal(window):
