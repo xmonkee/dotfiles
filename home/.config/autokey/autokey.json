@@ -41,6 +41,6 @@
         "modifiers": [
             "<super>"
         ], 
-        "enabled": true
+        "enabled": false
     }
 }
