@@ -12,8 +12,9 @@ export PATH=$GOPATH/bin:$PATH
 
 alias sed=gsed
 alias ls='ls -G'
-alias g="gcc -Wall -Wextra -Wstrict-prototypes -pedantic"
-alias t="tcc -Wall -Wextra -Wstrict-prototypes -pedantic -run"
+alias g="gcc -g -Wall -Wextra -Wstrict-prototypes -pedantic"
+alias t="tcc -g -Wall -Wextra -Wstrict-prototypes -pedantic -b -run"
+alias i="~/intel/system_studio_2019/bin/icc -g -Wall -Wextra -Wstrict-prototypes -pedantic"
 # alias socks5='ssh -D 8123 -f -C -q -N $UPVEST && firefox -private &'
 
 export NVM_DIR="$HOME/.nvm"

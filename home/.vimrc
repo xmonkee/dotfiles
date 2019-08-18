@@ -54,7 +54,7 @@ Plug 'https://github.com/dracula/vim'
 " Feature Plugs
 "Plug 'mileszs/ack.vim'
 Plug 'https://github.com/scrooloose/nerdtree'
-Plug 'https://github.com/bling/vim-airline'
+"Plug 'https://github.com/bling/vim-airline'
 Plug 'https://github.com/tpope/vim-fugitive'
 "Plug 'https://github.com/vimwiki/vimwiki.git'
 "Plug 'https://github.com/fholgado/minibufexpl.vim'
@@ -205,13 +205,13 @@ noremap <C-n> :NERDTreeToggle<CR>
 "let g:airline_symbols.paste = 'ρ'
 "let g:airline_symbols.whitespace = 'Ξ'
 
-let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tagbar#enabled = 0
+"let g:airline#extensions#tabline#enabled = 0
+"let g:airline#extensions#tabline#show_tabs = 1
+"let g:airline#extensions#tabline#show_buffers = 0
+"let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+"let g:airline#extensions#tagbar#enabled = 0
 
-let g:airline#extensions#eclim#enabled = 0
+"let g:airline#extensions#eclim#enabled = 0
 "==========================="
 
 "=======ctrlP=============="
@@ -318,3 +318,7 @@ let g:flow#enable = 1
 map <C-K> :pyf <path-to-this-file>/clang-format<cr>
 imap <C-K> <c-o>:pyf <path-to-this-file>/clang-format<cr>
 "==========================="
+
+"=====compile===="
+map <F5> : !gcc -Wall -Wextra -Wstrict-prototypes -pedantic -ansi % && ./a.out <CR>
+"==============="
