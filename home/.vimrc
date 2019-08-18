@@ -83,7 +83,7 @@ set laststatus=2
 set ruler
 set nonu
 set background=dark
-silent! colorscheme gruvbox
+"silent! colorscheme gruvbox
 set hidden "change buffers without saving
 set confirm "ask to save before quitting
 set guioptions-=r
