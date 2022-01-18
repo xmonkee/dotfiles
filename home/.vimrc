@@ -22,21 +22,23 @@ call plug#end()
 
 filetype plugin indent on    " required
 syntax on
-set colorcolumn=110
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
+
+"set colorcolumn=110
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set noexpandtab
 set t_Co=256
 
 au BufReadPost *.rkt,*.rktl set filetype=scheme
-au FileType lua ai ts=2 st=2 sw=2 noae
+au FileType lua setlocal ai ts=2 st=2 sw=2 noex
+au FileType python setlocal ai ts=4 st=4 sw=4 ex
 
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
-"set mouse=a
+set mouse=a
 set foldmethod=indent
 set foldlevel=99
 "set statusline+=%F\ %l\:%c
