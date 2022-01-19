@@ -44,7 +44,7 @@ set foldlevel=99
 "set statusline+=%F\ %l\:%c
 set laststatus=2
 "set ruler
-set nonu
+set nu
 "set background=dark
 "silent! colorscheme gruvbox
 set hlsearch "highlight search results
