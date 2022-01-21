@@ -13,6 +13,7 @@ Plug 'https://github.com/terryma/vim-expand-region'
 Plug 'https://github.com/godlygeek/tabular'
 Plug 'https://github.com/wellle/targets.vim.git'
 Plug 'https://github.com/scrooloose/nerdcommenter'
+Plug 'itchyny/lightline.vim'
 
 " Feature Plugs
 Plug 'https://github.com/scrooloose/nerdtree'
@@ -41,9 +42,8 @@ au Syntax * RainbowParenthesesLoadBraces
 set mouse=a
 set foldmethod=indent
 set foldlevel=99
-"set statusline+=%F\ %l\:%c
 set laststatus=2
-"set ruler
+set ruler
 set nu
 "set background=dark
 "silent! colorscheme gruvbox
