@@ -14,6 +14,7 @@ Plug 'https://github.com/godlygeek/tabular'
 Plug 'https://github.com/wellle/targets.vim.git'
 Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'itchyny/lightline.vim'
+Plug 'https://github.com/morhetz/gruvbox'
 
 " Feature Plugs
 Plug 'https://github.com/scrooloose/nerdtree'
@@ -45,8 +46,8 @@ set foldlevel=99
 set laststatus=2
 set ruler
 set nu
-"set background=dark
-"silent! colorscheme gruvbox
+set background=dark
+silent! colorscheme gruvbox
 set hlsearch "highlight search results
 set hidden "change buffers without saving
 set confirm "ask to save before quitting
