@@ -1,30 +1,16 @@
 # Vim mode
 bindkey -v
 
-source $HOME/.git-prompt.sh
-get_ps1_pre() {
-    if [[ -n "${VIRTUAL_ENV}" ]]; then
-        prefix="("$(basename "${VIRTUAL_ENV}")") "
-    else
-        prefix=""
-    fi
-    echo "%F{magenta}~%f $prefix%F{cyan}%n@%m%f %F{yellow}[%3c]%f"
-}
-
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM=verbose
-GIT_PS1_SHOWSTASHSTATE=1
-GIT_PS1_DESCRIBE_STYLE=branch
-GIT_PS1_SHOWCOLORHINTS=1
-[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 setopt PROMPT_SUBST
 NEWLINE=$'\n'
-PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"
-PS1_POST="%0(?..%F{red} %?%f)" # exit status
+PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
+PS1_POST=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}] ~%f" # timestamp
+PS1_POST+="%0(?..%F{red} %?%f)" # exit status
 PS1_POST+="%1(j.%F{green} %j%f.)" # suspended jobs
-PS1_POST+=" %F{magenta}~%f"$NEWLINE"$ "
-precmd () { __git_ps1 "$(get_ps1_pre)" "$PS1_POST" " 〈 %s 〉" }
+PS1_POST+=$NEWLINE"$ "
+# precmd () { echo "$PS1_PRE" "$PS1_POST" " 〈 %s 〉" }
+PS1="$PS1_PRE$PS1_POST"
+# precmd () { __git_ps1 "$(get_ps1_pre)" "$PS1_POST" " 〈 %s 〉" }
 
 
 # Set title to directory or last command
@@ -37,14 +23,6 @@ fpath=(~/.zsh-completions $fpath)
 if [[ -a ~/.bashrc ]]; then
     source ~/.bashrc
 fi
-
-#{{{ fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-## Use rg for fzf completion
-_fzf_compgen_path() {
-      rg --hidden --ignore .git -g "" "$1"
-  }
-#}}}
 
 #{{{ ZSH Modules
 
@@ -191,3 +169,4 @@ zstyle ':completion:*' ignore-parents parent pwd
 
 #}}}
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
