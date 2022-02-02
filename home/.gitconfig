@@ -2,15 +2,15 @@
 	name = Mayank Mandava
 	email = mayankmandava@gmail.com
 [core]
-    editor = vim
+	editor = vim
 [alias]
-    co = checkout
-		d = diff
-		save = "!sh -c `git add . && git commit -m \"Save\" && git push"
-    amend = commit --amend --no-edit
-    l = log --stat -C --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset\n\n  %C(bold cyan)%s%Creset\n'
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-    s = "!sh -c 'git l -1 && echo && git status -sb && echo'"
+	co = checkout
+	d = diff
+	save = "!sh -c `git add . && git commit -m \"Save\" && git push`"
+	amend = commit --amend --no-edit
+	l = log --stat -C --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset\n\n  %C(bold cyan)%s%Creset\n'
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	s = "!sh -c 'git l -1 && echo && git status -sb && echo'"
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
