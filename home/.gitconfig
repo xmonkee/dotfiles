@@ -5,18 +5,11 @@
     editor = vim
 [alias]
     co = checkout
-    d = diff
-    rd = "!sh -c 'git fetch; git rebase origin/master'"
-    ri = rebase -i origin/master
-    ra = rebase --continue
-    ca = commit --amend --no-edit
-    caa = "!sh -c 'git add . && git commit --amend --no-edit'"
+		d = diff
+		save = "!sh -c `git add . && git commit -m \"Save\" && git push"
+    amend = commit --amend --no-edit
     l = log --stat -C --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset\n\n  %C(bold cyan)%s%Creset\n'
-    lf = log --stat -C --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cgreen(%cr) %C(bold blue)<%an>%Creset\n\n  %C(bold cyan)%s\n\n%b%Creset\n'
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-    ld = "!sh -c 'git lg --left-right --cherry-pick HEAD...origin/master'"
-    lu = "!sh -c 'git lg --left-right @{u}...HEAD'"
-    lr = "!f() { git lg --cherry-pick --left-right origin/master.. \"$1\"...HEAD; }; f"
     s = "!sh -c 'git l -1 && echo && git status -sb && echo'"
 [filter "lfs"]
 	clean = git-lfs clean -- %f
