@@ -2,15 +2,15 @@
 bindkey -v
 
 setopt PROMPT_SUBST
+source $HOME/dotfiles/home/.git-prompt.sh
 NEWLINE=$'\n'
 PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
-PS1_POST=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}] ~%f" # timestamp
-PS1_POST+="%0(?..%F{red} %?%f)" # exit status
-PS1_POST+="%1(j.%F{green} %j%f.)" # suspended jobs
-PS1_POST+=$NEWLINE"$ "
-# precmd () { echo "$PS1_PRE" "$PS1_POST" " 〈 %s 〉" }
-PS1="$PS1_PRE$PS1_POST"
-# precmd () { __git_ps1 "$(get_ps1_pre)" "$PS1_POST" " 〈 %s 〉" }
+PS1_PRE+=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}]%f" # timestamp
+PS1_PRE+="%0(?..%F{red} %?%f)" # exit status
+PS1_PRE+="%1(j.%F{green} %j%f.)" # suspended jobs
+PS1_PRE+="%F{green}" # suspended jobs
+PS1_POST="%f"$NEWLINE"$ "
+precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" "〈%s〉" }
 
 
 # Set title to directory or last command
