@@ -11,15 +11,7 @@ export PATH=$GOPATH/bin:$PATH
 alias sed=gsed
 alias ls='ls -G'
 alias g="gcc -g -Wall -Wextra -Wstrict-prototypes -pedantic"
+alias psql="docker run --rm -it postgres psql"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-export PATH="$PYENV_ROOT/shims:$PATH"
-eval "$(pyenv init -)"
-
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
+export ASDF_DIR=$HOME/.asdf
+source $ASDF_DIR/asdf.sh

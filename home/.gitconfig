@@ -3,6 +3,7 @@
 	email = mayankmandava@gmail.com
 [core]
 	editor = vim
+	symlinks = true
 [alias]
 	co = checkout
 	d = diff

@@ -17,12 +17,15 @@ PS1="$PS1_PRE$PS1_POST"
 # precmd() { print -Pn "\e]0;%3/\a" }
 # preexec() { echo -ne "\e]2; $(history $HISTCMD | cut -b7- ) \a"  }
 
-# pass completion
-fpath=(~/.zsh-completions $fpath)
-
+# Source bashrc
 if [[ -a ~/.bashrc ]]; then
     source ~/.bashrc
 fi
+
+# pass completion
+fpath=(~/.zsh-completions $fpath)
+fpath=($ASDF_DIR/completions $fpath)
+
 
 #{{{ ZSH Modules
 
