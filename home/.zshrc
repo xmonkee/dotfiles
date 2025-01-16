@@ -173,3 +173,10 @@ zstyle ':completion:*' ignore-parents parent pwd
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(devbox global shellenv --init-hook)"
+
+# bun completions
+[ -s "/Users/mayankmandava/.bun/_bun" ] && source "/Users/mayankmandava/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
