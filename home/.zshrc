@@ -3,6 +3,8 @@ bindkey -v
 
 setopt PROMPT_SUBST
 source $HOME/dotfiles/home/.git-prompt.sh
+# source "$HOME/.asdf/asdf.sh"
+
 NEWLINE=$'\n'
 PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
 PS1_PRE+=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}]%f" # timestamp
@@ -12,15 +14,11 @@ PS1_PRE+="%F{green}" # suspended jobs
 PS1_POST="%f"$NEWLINE"$ "
 precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" "〈%s〉" }
 
+PATH=$PATH:/opt/homebrew/opt/libpq/bin/
 
 # Set title to directory or last command
 # precmd() { print -Pn "\e]0;%3/\a" }
 # preexec() { echo -ne "\e]2; $(history $HISTCMD | cut -b7- ) \a"  }
-
-# Source bashrc
-if [[ -a ~/.bashrc ]]; then
-    source ~/.bashrc
-fi
 
 # pass completion
 fpath=(~/.zsh-completions $fpath)
