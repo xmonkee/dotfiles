@@ -170,4 +170,6 @@ zstyle ':completion:*' ignore-parents parent pwd
 
 #}}}
 
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(devbox global shellenv --init-hook)"
