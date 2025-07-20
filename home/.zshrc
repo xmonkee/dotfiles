@@ -1,3 +1,5 @@
+# Uncomment to profile zsh startup time
+zmodload zsh/zprof
 # Vim mode
 bindkey -v
 
@@ -12,7 +14,7 @@ PS1_PRE+="%0(?..%F{red} %?%f)" # exit status
 PS1_PRE+="%1(j.%F{green} %j%f.)" # suspended jobs
 PS1_PRE+="%F{green}" # suspended jobs
 PS1_POST="%f"$NEWLINE"$ "
-precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" "〈%s〉" }
+precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" " <%s>" }
 
 PATH=$PATH:/opt/homebrew/opt/libpq/bin/
 
@@ -180,3 +182,35 @@ eval "$(devbox global shellenv --init-hook)"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+. "$HOME/.local/bin/env"
+
+# Lazy load NVM for faster shell startup
+export NVM_DIR="$HOME/.nvm"
+
+# Define nvm as a function instead of loading it right away
+nvm() {
+  unset nvm
+  # Load nvm only when the function is first called
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  # Call nvm with the provided arguments
+  nvm "$@"
+}
+
+# Define node, npm, and other common Node.js commands to also load nvm
+node() {
+  unset node npm npx yarn
+  # Load nvm when these commands are first used
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  # Forward to the real command
+  "$@"
+}
+npm() { node npm "$@"; }
+npx() { node npx "$@"; }
+yarn() { node yarn "$@"; }
+
+# Lazy load bash completion
+# We'll load this only when you press Tab after typing 'nvm'
+compdef _nvm_completion nvm 2>/dev/null || true
+# Uncomment to profile zsh startup time
+zprof # at the end
