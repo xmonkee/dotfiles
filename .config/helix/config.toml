@@ -1,0 +1,7 @@
+theme = "snazzy"
+
+[keys.normal]
+C-s = ":w"
+
+[keys.normal."space"]
+x = { c = ":open ~/.config/helix/config.toml", l = ":open ~/.config/helix/languages.toml" }

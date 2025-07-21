@@ -205,9 +205,11 @@ zstyle ':completion:*' ignore-parents parent pwd
 # Aliases
 # ------------------------------------------------------------------------------
 alias claude="/Users/mayank/.claude/local/claude"
-alias vim=nvim
+alias vim=hx
 
 # ------------------------------------------------------------------------------
 # Finalize Profiling (leave this at the very end)
 # ------------------------------------------------------------------------------
 # zprof
+
+if [ -e /home/xmonkee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/xmonkee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
