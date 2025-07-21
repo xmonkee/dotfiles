@@ -1,11 +1,20 @@
-# Uncomment to profile zsh startup time
-zmodload zsh/zprof
+# ~/.zshrc
+
+# Start profiling (leave this at the very top, uncomment this and the zprof at the bottom for profiling)
+# zmodload zsh/zprof
+
+# ------------------------------------------------------------------------------
+# Basic setup
+# ------------------------------------------------------------------------------
 # Vim mode
 bindkey -v
 
+
+# ------------------------------------------------------------------------------
+# Prompt setup
+# ------------------------------------------------------------------------------
 setopt PROMPT_SUBST
-source $HOME/dotfiles/home/.git-prompt.sh
-# source "$HOME/.asdf/asdf.sh"
+source $HOME/dotfiles/.git-prompt.sh
 
 NEWLINE=$'\n'
 PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
@@ -16,201 +25,189 @@ PS1_PRE+="%F{green}" # suspended jobs
 PS1_POST="%f"$NEWLINE"$ "
 precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" " <%s>" }
 
-PATH=$PATH:/opt/homebrew/opt/libpq/bin/
 
 # Set title to directory or last command
 # precmd() { print -Pn "\e]0;%3/\a" }
 # preexec() { echo -ne "\e]2; $(history $HISTCMD | cut -b7- ) \a"  }
 
-# pass completion
-fpath=(~/.zsh-completions $fpath)
-fpath=($ASDF_DIR/completions $fpath)
+# PATH additions
+PATH="/opt/homebrew/opt/libpq/bin:$PATH" # For PostgreSQL
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH" # Bun an PATH should be BUN_INSTALL/bin
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/node/bin:$PATH"
 
+# ------------------------------------------------------------------------------
+# FZF (Fuzzy Finder)
+# ------------------------------------------------------------------------------
+# Source fzf definitions if the file exists
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+fi
 
-#{{{ ZSH Modules
+# ------------------------------------------------------------------------------
+# Devbox
+# ------------------------------------------------------------------------------
+if (( $+commands[devbox] )); then
+  eval "$(devbox global shellenv --init-hook)"
+fi
 
-autoload -U compinit promptinit zcalc zsh-mime-setup
-compinit
+# ------------------------------------------------------------------------------
+# Bun Completions
+# ------------------------------------------------------------------------------
+[ -s "/Users/mayankmandava/.bun/_bun" ] && source "/Users/mayankmandava/.bun/_bun"
+
+# ------------------------------------------------------------------------------
+# Custom Environment Script
+# ------------------------------------------------------------------------------
+# Source local environment script if it exists
+if [ -f "$HOME/.local/bin/env" ]; then
+  . "$HOME/.local/bin/env"
+fi
+
+# ------------------------------------------------------------------------------
+# Zsh Modules & Completions Setup
+# ------------------------------------------------------------------------------
+# Add user's custom completions directory to fpath (if it exists)
+# Prepending means these completions will be found first.
+ZSH_CUSTOM_COMPLETIONS_DIR="$HOME/.zsh-completions"
+if [ -d "$ZSH_CUSTOM_COMPLETIONS_DIR" ]; then
+  fpath=("$ZSH_CUSTOM_COMPLETIONS_DIR" $fpath)
+fi
+# Note: The original fpath line for ASDF is handled in the ASDF section now.
+
+# Autoload Zsh modules
+autoload -U compinit promptinit
+autoload -Uz zcalc # Autoload zcalc on first use (zsh builtin calculator)
+autoload -Uz zsh-mime-setup # Autoload MIME setup on first use.
+
+# Initialize the completion system
+# This is the most critical part for startup speed.
+# We'll use a dump file and only rebuild it if it's old or missing.
+ZSH_COMPDUMP="${ZDOTDIR:-$HOME}/.zcompdump.${ZSH_VERSION}" # Version-specific dump file
+
+# Regenerate .zcompdump if it's missing, empty, or older than 20 hours.
+# The `-i` flag tells compinit to ignore insecure files and directories without prompting.
+# The `-C` flag tells compinit to use the dump file without checking if it's up-to-date.
+if [[ ! -s "$ZSH_COMPDUMP" || -z "$ZSH_COMPDUMP"(#qN.mh+20) ]]; then
+  # echo "Generating new .zcompdump..." # Optional: for feedback during generation
+  compinit -i -d "$ZSH_COMPDUMP"
+else
+  compinit -i -C -d "$ZSH_COMPDUMP" # Load cached dump file
+fi
+
+# Initialize prompt system.
 promptinit
+
+# If you uncommented `autoload -Uz zsh-mime-setup` and need its functionality at startup:
 zsh-mime-setup
-#}}}
 
-##{{{ Options
-
-# Autocomplete apt
-setopt completealiases
-
-# why would you type 'cd dir' if you could just type 'dir'?
-#setopt AUTO_CD
-
-# Now we can pipe to multiple outputs!
-#setopt MULTIOS
-
-# Spell check commands!  (Sometimes annoying)
- #setopt CORRECT
-
-# This makes cd=pushd
+# ------------------------------------------------------------------------------
+# Zsh Options (setopt)
+# Most setopt calls are very fast.
+# ------------------------------------------------------------------------------
+setopt COMPLETE_IN_WORD
+setopt COMPLETEALIASES
 setopt AUTO_PUSHD
-
-# This will use named dirs when possible
-#setopt AUTO_NAME_DIRS
-
-# blank pushd goes to home
 setopt PUSHD_TO_HOME
-
-# this will ignore multiple directories for the stack.  Useful?  I dunno.
 setopt PUSHD_IGNORE_DUPS
-
-# beeps are annoying
 setopt NO_BEEP
-
-# globbin
 setopt EXTENDED_GLOB
+# setopt AUTO_CD
+# setopt MULTIOS
+# setopt CORRECT
+# setopt AUTO_NAME_DIRS
 
-#}}}
-
-#{{{ History Stuff
-
-# Where it gets saved
+# ------------------------------------------------------------------------------
+# History Configuration
+# ------------------------------------------------------------------------------
 HISTFILE=~/.history
-
-# Remember about a years worth of history (AWESOME)
 SAVEHIST=10000
 HISTSIZE=10000
 
-# Don't overwrite, append!
-setopt APPEND_HISTORY
+setopt APPEND_HISTORY       # Append to history file
+setopt SHARE_HISTORY        # Share history between concurrent shells (recommended)
+# setopt INC_APPEND_HISTORY # Append incrementally (SHARE_HISTORY is often preferred)
+setopt HIST_IGNORE_DUPS     # Don't save duplicate consecutive commands
+setopt HIST_IGNORE_ALL_DUPS # Don't save duplicate commands anywhere in history
+setopt HIST_REDUCE_BLANKS   # Remove superfluous blanks from commands
+setopt HIST_IGNORE_SPACE    # Don't save commands starting with a space
+setopt HIST_NO_STORE        # Don't save `history` or `fc` commands themselves
+setopt HIST_VERIFY          # Show command from history before executing on expansion
+setopt EXTENDED_HISTORY     # Save timestamp and duration for each command
+setopt HIST_SAVE_NO_DUPS    # When writing history, skip older duplicates
+setopt HIST_EXPIRE_DUPS_FIRST # When trimming history, remove duplicates first
+setopt HIST_FIND_NO_DUPS    # When searching, don't show duplicates next to each other
 
-# Write after each command
-# setopt INC_APPEND_HISTORY
-
-# Killer: share history between multiple shells
-setopt SHARE_HISTORY
-
-# If I type cd and then cd again, only save the last one
-setopt HIST_IGNORE_DUPS
-
-# Even if there are commands inbetween commands that are the same, still only save the last one
-setopt HIST_IGNORE_ALL_DUPS
-
-# Pretty    Obvious.  Right?
-setopt HIST_REDUCE_BLANKS
-
-# If a line starts with a space, don't save it.
-setopt HIST_IGNORE_SPACE
-setopt HIST_NO_STORE
-
-# When using a hist thing, make a newline show the change before executing it.
-setopt HIST_VERIFY
-
-# Save the time and how long a command ran
-setopt EXTENDED_HISTORY
-
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_FIND_NO_DUPS
-
-#}}}
-
-#{{{ Completion Stuff
-
+# ------------------------------------------------------------------------------
+# Completion Styling (zstyle)
+# These affect behavior and appearance of completions, not startup speed significantly
+# once compinit has run.
+# ------------------------------------------------------------------------------
+# Keybinding for completion in vi insert mode
 bindkey -M viins '\C-i' complete-word
 
-# Faster! (?)
-zstyle ':completion::complete:*' use-cache 1
+# Use a cache for completion results (can sometimes improve responsiveness)
+zstyle ':completion::complete:*' use-cache true
 
-# case insensitive completion
+# Case-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# Verbose completion messages and formatting
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
-#zstyle ':completion:*' completer _oldlist _expand _complete
-#zstyle ':completion:*' completer _expand _complete _approximate _ignored
+
+# Completers to use
 zstyle ':completion:*' completer _expand _complete _ignored
 
-# generate descriptions with magic.
 zstyle ':completion:*' auto-description 'specify: %d'
-
-# Don't prompt for a huge list, page it!
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*:default' menu 'select=0' # Enable menu selection
 
-# Don't prompt for a huge list, menu it!
-zstyle ':completion:*:default' menu 'select=0'
-
-# Have the newer files last so I see them first
+# Sort files by modification time (newer last, so they appear higher in lists)
 zstyle ':completion:*' file-sort modification reverse
 
-# color code completion!!!!  Wohoo!
+# Color-coded completions (ensure your terminal supports colors and LS_COLORS or similar is configured)
 zstyle ':completion:*' list-colors "=(#b) #([0-9]#)*=36=31"
 
-unsetopt LIST_AMBIGUOUS
-setopt  COMPLETE_IN_WORD
+unsetopt LIST_AMBIGUOUS # As per your original config
 
-# Separate man page sections.  Neat.
+# Completion for man pages
 zstyle ':completion:*:manuals' separate-sections true
 
-# complete with a menu for xwindow ids
-zstyle ':completion:*:windows' menu on=0
+# Completion for X window IDs (if applicable)
+zstyle ':completion:*:windows' menu on=0 # Kept as per your config, though 'select=0' is more common for menu
+
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
-# more errors allowed for large words and fewer for small words
-zstyle ':completion:*:approximate:*' max-errors 'reply=(  $((  ($#PREFIX+$#SUFFIX)/3  ))  )'
+# Approximate completion error handling
+zstyle ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3) ))'
 
-# Errors format
+# Format for correction suggestions
 zstyle ':completion:*:corrections' format '%B%d (errors %e)%b'
 
-# Don't complete stuff already on the line
+# Don't complete arguments already on the line for `rm` and `vi`
 zstyle ':completion::*:(rm|vi):*' ignore-line true
 
-# Don't complete directory we are already in (../here)
+# Ignore parent directories and current directory for completion
 zstyle ':completion:*' ignore-parents parent pwd
 
-# zstyle ':completion::approximate*:*' prefix-needed false
+# Load starship prompt
+# To install starship (zsh prompt) use curl -sS https://starship.rs/install.sh | sh
+#if (( $+commands[starship] )); then
+	#eval "$(starship init zsh)"
+#fi
 
-#}}}
+# ------------------------------------------------------------------------------
+# Aliases
+# ------------------------------------------------------------------------------
+alias claude="/Users/mayank/.claude/local/claude"
+alias vim=nvim
 
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(devbox global shellenv --init-hook)"
-
-# bun completions
-[ -s "/Users/mayankmandava/.bun/_bun" ] && source "/Users/mayankmandava/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-. "$HOME/.local/bin/env"
-
-# Lazy load NVM for faster shell startup
-export NVM_DIR="$HOME/.nvm"
-
-# Define nvm as a function instead of loading it right away
-nvm() {
-  unset nvm
-  # Load nvm only when the function is first called
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  # Call nvm with the provided arguments
-  nvm "$@"
-}
-
-# Define node, npm, and other common Node.js commands to also load nvm
-node() {
-  unset node npm npx yarn
-  # Load nvm when these commands are first used
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  # Forward to the real command
-  "$@"
-}
-npm() { node npm "$@"; }
-npx() { node npx "$@"; }
-yarn() { node yarn "$@"; }
-
-# Lazy load bash completion
-# We'll load this only when you press Tab after typing 'nvm'
-compdef _nvm_completion nvm 2>/dev/null || true
-# Uncomment to profile zsh startup time
-zprof # at the end
+# ------------------------------------------------------------------------------
+# Finalize Profiling (leave this at the very end)
+# ------------------------------------------------------------------------------
+# zprof
