@@ -28,7 +28,9 @@ fi
 # ------------------------------------------------------------------------------
 # Devbox
 # ------------------------------------------------------------------------------
-eval "$(devbox global shellenv --init-hook)"
+if (( $+commands[devbox] )); then
+  eval "$(devbox global shellenv --init-hook)"
+fi
 
 # ------------------------------------------------------------------------------
 # Bun Completions
@@ -81,35 +83,6 @@ promptinit
 zsh-mime-setup
 
 # ------------------------------------------------------------------------------
-# Prompt Setup
-# ------------------------------------------------------------------------------
-# Source git-prompt functions
-# Ensure this path is correct.
-GIT_PROMPT_SCRIPT="$HOME/dotfiles/home/.git-prompt.sh"
-if [ -f "$GIT_PROMPT_SCRIPT" ]; then
-  source "$GIT_PROMPT_SCRIPT"
-fi
-
-NEWLINE=$'\n'
-PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
-PS1_PRE+=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}]%f" # timestamp
-PS1_PRE+="%0(?..%F{red} %?%f)" # exit status
-PS1_PRE+="%1(j.%F{green} %j%f.)" # suspended jobs
-PS1_POST="%f"$NEWLINE"$ " # Reset color, newline, prompt character ($)
-
-# precmd function to set the prompt using __git_ps1
-# This runs before each prompt is displayed.
-precmd() {
-  if command -v __git_ps1 >/dev/null 2>&1; then
-    # The " <%s>" is the format for the git status string.
-    __git_ps1 "$PS1_PRE" "$PS1_POST" " <%s>"
-  else
-    # Fallback prompt if __git_ps1 is not available
-    PS1="${PS1_PRE}${PS1_POST}"
-  fi
-}
-
-# ------------------------------------------------------------------------------
 # Zsh Options (setopt)
 # Most setopt calls are very fast.
 # ------------------------------------------------------------------------------
@@ -120,10 +93,10 @@ setopt PUSHD_TO_HOME
 setopt PUSHD_IGNORE_DUPS
 setopt NO_BEEP
 setopt EXTENDED_GLOB
-# setopt AUTO_CD # User had it commented
-# setopt MULTIOS # User had it commented
-# setopt CORRECT # User had it commented (spell check, can be slow/annoying)
-# setopt AUTO_NAME_DIRS # User had it commented
+# setopt AUTO_CD
+# setopt MULTIOS
+# setopt CORRECT
+# setopt AUTO_NAME_DIRS
 
 # ------------------------------------------------------------------------------
 # History Configuration
@@ -206,4 +179,13 @@ zstyle ':completion:*' ignore-parents parent pwd
 # Finalize Profiling (leave this at the very end)
 # ------------------------------------------------------------------------------
 # zprof
+
+# Load starship prompt
+if (( $+commands[starship] )); then
+	eval "$(starship init zsh)"
+fi
+
+# Aliases
 alias claude="/Users/mayank/.claude/local/claude"
+alias vim=nvim
+
