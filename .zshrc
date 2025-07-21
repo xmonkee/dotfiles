@@ -213,3 +213,4 @@ alias vim=hx
 # zprof
 
 if [ -e /home/xmonkee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/xmonkee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+export EDITOR=vim

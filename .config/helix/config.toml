@@ -2,6 +2,12 @@ theme = "snazzy"
 
 [keys.normal]
 C-s = ":w"
+G = "goto_file_end"
 
-[keys.normal."space"]
-x = { c = ":open ~/.config/helix/config.toml", l = ":open ~/.config/helix/languages.toml" }
+[keys.insert]
+C-s = [":w", "normal_mode"]
+
+[keys.normal."space".x]
+c = ":open ~/.config/helix/config.toml"
+r = ":config-reload"
+l = ":open ~/.config/helix/languages.toml"
