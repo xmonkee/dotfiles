@@ -11,3 +11,8 @@ C-s = [":w", "normal_mode"]
 c = ":open ~/.config/helix/config.toml"
 r = ":config-reload"
 l = ":open ~/.config/helix/languages.toml"
+
+[keys.normal."space"."space"]
+c = ":buffer-close"
+w = ":w"
+q = ":q"
