@@ -1,18 +1,29 @@
 theme = "snazzy"
 
+[editor]
+auto-format = true
+
+[editor.cursor-shape]
+insert = "bar"
+
 [keys.normal]
 C-s = ":w"
+C-h = "goto_next_buffer"
+C-l = "goto_previous_buffer"
 G = "goto_file_end"
 
 [keys.insert]
 C-s = [":w", "normal_mode"]
 
 [keys.normal."space".x]
-c = ":open ~/.config/helix/config.toml"
+c = ":config-open"
 r = ":config-reload"
 l = ":open ~/.config/helix/languages.toml"
 
 [keys.normal."space"."space"]
+j = ":buffer-previous"
+k = ":buffer-next"
 c = ":buffer-close"
+C = ":buffer-close!"
 w = ":w"
 q = ":q"
