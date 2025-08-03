@@ -3,16 +3,20 @@ theme = "snazzy"
 [keys.normal]
 C-s = ":w"
 G = "goto_file_end"
+D = "@t<ret>d"
+V = ["extend_line_below", "select_mode"]
+"*" = ["move_prev_word_start", "move_next_word_end", "search_selection"]
+
+[keys.select]
+V = ["extend_line_below"]
 
 [keys.insert]
 C-s = [":w", "normal_mode"]
 
-[keys.normal."space".x]
-c = ":open ~/.config/helix/config.toml"
-r = ":config-reload"
-l = ":open ~/.config/helix/languages.toml"
-
 [keys.normal."space"."space"]
-c = ":buffer-close"
-w = ":w"
-q = ":q"
+q = ":buffer-close"
+Q = ":q"
+k = ":buffer-previous"
+j = ":buffer-next"
+c = ":config-open"
+r = ":config-reload"

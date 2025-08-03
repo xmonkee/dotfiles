@@ -36,6 +36,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH" # Bun an PATH should be BUN_INSTALL/bin
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/share/node/bin:$PATH"
+export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:$PATH"
 
 # ------------------------------------------------------------------------------
 # FZF (Fuzzy Finder)
