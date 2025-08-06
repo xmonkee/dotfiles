@@ -1,5 +1,11 @@
 theme = "snazzy"
 
+[editor]
+auto-format = true
+
+[editor.cursor-shape]
+insert = "bar"
+
 [keys.normal]
 C-s = ":w"
 G = "goto_file_end"
