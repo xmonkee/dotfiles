@@ -14,9 +14,9 @@ V = ["extend_line_below"]
 C-s = [":w", "normal_mode"]
 
 [keys.normal."space"."space"]
-q = ":buffer-close"
-Q = ":q"
+c = ":buffer-close"
+q = ":q"
 k = ":buffer-previous"
 j = ":buffer-next"
-c = ":config-open"
+o = ":config-open"
 r = ":config-reload"
