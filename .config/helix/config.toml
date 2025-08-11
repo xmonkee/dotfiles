@@ -20,6 +20,7 @@ V = ["extend_line_below"]
 C-s = [":w", "normal_mode"]
 
 [keys.normal."space"."space"]
+w = ":write"
 c = ":buffer-close"
 q = ":q"
 k = ":buffer-previous"

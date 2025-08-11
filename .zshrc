@@ -207,6 +207,7 @@ zstyle ':completion:*' ignore-parents parent pwd
 # ------------------------------------------------------------------------------
 alias claude="/Users/mayank/.claude/local/claude"
 alias vim=hx
+alias lg=lazygit
 
 # ------------------------------------------------------------------------------
 # Finalize Profiling (leave this at the very end)
