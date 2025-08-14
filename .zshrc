@@ -37,6 +37,7 @@ export PATH="$BUN_INSTALL/bin:$PATH" # Bun an PATH should be BUN_INSTALL/bin
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/share/node/bin:$PATH"
 export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:$PATH"
+export PATH="$HOME/.local/node_modules/bin:$PATH"
 
 # ------------------------------------------------------------------------------
 # FZF (Fuzzy Finder)
@@ -205,8 +206,8 @@ zstyle ':completion:*' ignore-parents parent pwd
 # ------------------------------------------------------------------------------
 # Aliases
 # ------------------------------------------------------------------------------
-alias claude="/Users/mayank/.claude/local/claude"
-alias vim=hx
+# alias claude="/Users/mayank/.claude/local/claude"
+# alias vim=hx
 alias lg=lazygit
 
 # ------------------------------------------------------------------------------
