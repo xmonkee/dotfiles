@@ -75,10 +75,10 @@ lazy.setup({
     dependencies = {'nvim-lua/plenary.nvim'},
     config = function()
       -- Telescope keymaps
-      vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
-      vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
-      vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
-      vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
+      vim.keymap.set('n', '<leader>f', '<cmd>Telescope find_files<cr>')
+      vim.keymap.set('n', '<leader>/', '<cmd>Telescope live_grep<cr>')
+      vim.keymap.set('n', '<leader>b', '<cmd>Telescope buffers<cr>')
+      vim.keymap.set('n', '<leader>h', '<cmd>Telescope help_tags<cr>')
     end
   },
   {
