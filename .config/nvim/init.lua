@@ -149,6 +149,10 @@ lazy.setup({
       vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
     end
   },
+  {
+    'echasnovski/mini.clue',
+    version = false,
+  },
 })
 
 -- Autocommands
@@ -218,6 +222,8 @@ vim.keymap.set('n', '<C-H>', '^')
 vim.keymap.set('n', '<C-L>', '$')
 vim.keymap.set('n', '<C-e>', '10<C-e>')
 vim.keymap.set('n', '<C-y>', '10<C-y>')
+vim.keymap.set('i', '<C-s>', '<ESC>:w<CR>')
+vim.keymap.set('n', '<C-s>', ':w<CR>')
 
 -- LSP and completion setup (from second file)
 local cmp = require('cmp')
@@ -294,3 +300,59 @@ require('mason-lspconfig').setup({
   }
 })
 
+local miniclue = require('mini.clue')
+miniclue.setup({
+	triggers = {
+		-- Leader triggers
+		{ mode = 'n', keys = '<Leader>' },
+		{ mode = 'x', keys = '<Leader>' },
+
+		-- Built-in completion
+		{ mode = 'i', keys = '<C-x>' },
+
+		-- g prefix
+		{ mode = 'n', keys = 'g' },
+		{ mode = 'x', keys = 'g' },
+
+		-- Marks
+		{ mode = 'n', keys = "'" },
+		{ mode = 'n', keys = '`' },
+		{ mode = 'x', keys = "'" },
+		{ mode = 'x', keys = '`' },
+
+		-- Registers
+		{ mode = 'n', keys = '"' },
+		{ mode = 'x', keys = '"' },
+		{ mode = 'i', keys = '<C-r>' },
+		{ mode = 'c', keys = '<C-r>' },
+
+		-- Window commands
+		{ mode = 'n', keys = '<C-w>' },
+
+		-- z prefix
+		{ mode = 'n', keys = 'z' },
+		{ mode = 'x', keys = 'z' },
+
+		-- Brackets
+		{ mode = 'n', keys = '[' },
+		{ mode = 'n', keys = ']' },
+	},
+
+	clues = {
+		-- Enhance this by adding descriptions
+		{ mode = 'n', keys = '<Leader>f', desc = "+Files" },
+		miniclue.gen_clues.builtin_completion(),
+		miniclue.gen_clues.g(),
+		miniclue.gen_clues.marks(),
+		miniclue.gen_clues.registers(),
+		miniclue.gen_clues.windows(),
+		miniclue.gen_clues.z(),
+	},
+
+	window = {
+		delay = 10,
+		config = {
+			width = 'auto',
+		},
+	},
+})
