@@ -206,8 +206,8 @@ zstyle ':completion:*' ignore-parents parent pwd
 # ------------------------------------------------------------------------------
 # Aliases
 # ------------------------------------------------------------------------------
-# alias claude="/Users/mayank/.claude/local/claude"
-# alias vim=hx
+alias claude="/Users/mayank/.claude/local/claude"
+alias vim=nvim
 alias lg=lazygit
 
 # ------------------------------------------------------------------------------
