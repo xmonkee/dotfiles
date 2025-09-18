@@ -13,18 +13,21 @@ bindkey -v
 # ------------------------------------------------------------------------------
 # Prompt setup
 # ------------------------------------------------------------------------------
-setopt PROMPT_SUBST
-source $HOME/dotfiles/.git-prompt.sh
+#setopt PROMPT_SUBST
+#source $HOME/dotfiles/.git-prompt.sh
 
-NEWLINE=$'\n'
-PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
-PS1_PRE+=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}]%f" # timestamp
-PS1_PRE+="%0(?..%F{red} %?%f)" # exit status
-PS1_PRE+="%1(j.%F{green} %j%f.)" # suspended jobs
-PS1_PRE+="%F{green}" # suspended jobs
-PS1_POST="%f"$NEWLINE"$ "
-precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" " <%s>" }
+#NEWLINE=$'\n'
+#PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
+#PS1_PRE+=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}]%f" # timestamp
+#PS1_PRE+="%0(?..%F{red} %?%f)" # exit status
+#PS1_PRE+="%1(j.%F{green} %j%f.)" # suspended jobs
+#PS1_PRE+="%F{green}" # suspended jobs
+#PS1_POST="%f"$NEWLINE"$ "
+#precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" " <%s>" }
 
+if builtin which oh-my-posh > /dev/null; then
+	eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh.toml)"
+fi
 
 # Set title to directory or last command
 # precmd() { print -Pn "\e]0;%3/\a" }
@@ -82,6 +85,8 @@ fi
 autoload -U compinit promptinit
 autoload -Uz zcalc # Autoload zcalc on first use (zsh builtin calculator)
 autoload -Uz zsh-mime-setup # Autoload MIME setup on first use.
+autoload edit-command-line # Autoload edit-in-vim
+zle -N edit-command-line
 
 # Initialize the completion system
 # This is the most critical part for startup speed.
@@ -148,6 +153,7 @@ setopt HIST_FIND_NO_DUPS    # When searching, don't show duplicates next to each
 # ------------------------------------------------------------------------------
 # Keybinding for completion in vi insert mode
 bindkey -M viins '\C-i' complete-word
+bindkey -M vicmd e edit-command-line
 
 # Use a cache for completion results (can sometimes improve responsiveness)
 zstyle ':completion::complete:*' use-cache true

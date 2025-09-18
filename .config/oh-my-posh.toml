@@ -1,0 +1,143 @@
+'$schema' = 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json'
+
+version = 3
+async = true
+console_title_template = '{{ .Shell }} in {{ .Folder }}'
+final_space = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = ' {{ if .SSHSession }} {{ .HostName }}{{ end }}{{ if .Root }} root{{ end }}'
+    foreground = '#efdcf9'
+    foreground_templates = ['{{ if .Root }}#ff3c3c{{ end }}', '{{ if .SSHSession }}#0e050f{{ end }}']
+    background = '#0e050f'
+    background_templates = ['{{ if and (not .Root) .SSHSession }}#a060e3{{ end }}']
+    type = 'session'
+    style = 'accordion'
+
+  [[blocks.segments]]
+    type = 'path'
+    template = ' {{ .Path }} '
+    foreground = '#efdcf9'
+    background = '#170b3b'
+    style = 'powerline'
+    powerline_symbol = ''
+    [blocks.segments.properties]
+      style = 'mixed'
+      mixed_threshold = 16
+      folder_icon = ''
+      display_root = true
+
+  [[blocks.segments]]
+    type = 'git'
+    template = '{{ if not .Segments.Jujutsu.Enabled }} {{ url .UpstreamIcon .UpstreamURL }} {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} {{ end }}'
+    foreground = '#efdcf9'
+    background = '#2c1048'
+    style = 'powerline'
+    powerline_symbol = ''
+    [blocks.segments.properties]
+      branch_icon = ''
+      branch_template = '{{ trunc 25 .Branch }}'
+      fetch_stash_count = true
+      fetch_status = true
+      fetch_upstream_icon = true
+      untracked_modes = {'*' = 'no'}
+
+  [[blocks.segments]]
+    type = 'jujutsu'
+    template = ' 󱗆 {{ .ChangeID }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }} '
+    foreground = '#efdcf9'
+    background = '#2c1048'
+    style = 'powerline'
+    powerline_symbol = ''
+    [blocks.segments.properties]
+      fetch_status = true
+
+  [[blocks.segments]]
+    type = 'terraform'
+    template = '  {{ .WorkspaceName }} '
+    foreground = '#efdcf9'
+    background = '#3a1c50'
+    style = 'powerline'
+    powerline_symbol = ''
+
+  [[blocks.segments]]
+    type = 'time'
+    template = ' {{ .CurrentDate | date .Format }} '
+    foreground = '#efdcf9'
+    background = '#4c1f5e'
+    style = 'powerline'
+    powerline_symbol = ''
+    [blocks.segments.properties]
+      time_format = '15:04'
+
+  [[blocks.segments]]
+    type = 'executiontime'
+    template = '{{ .FormattedMs }} '
+    foreground = '#efdcf9'
+    background = '#4c1f5e'
+    style = 'powerline'
+    powerline_symbol = ''
+
+  [[blocks.segments]]
+    type = 'text'
+    template = '{{ if gt .SHLVL 1 }} SHLVL:{{ .SHLVL }} {{ end }}'
+    foreground = '#efdcf9'
+    background = '#5a276a'
+    style = 'diamond'
+    trailing_diamond = ''
+
+  [[blocks.segments]]
+    type = 'text'
+    template = '{{ if gt .Jobs 0 }} {{ .Jobs }} {{ end }}'
+    foreground = '#efdcf9'
+    background = '#69307a'
+    style = 'diamond'
+    trailing_diamond = ''
+    [blocks.segments.properties]
+      always_enabled = true
+
+  [[blocks.segments]]
+    type = 'status'
+    template = '{{ if gt .Code 0 }} {{ .String }} {{ end }}'
+    foreground = '#efdcf9'
+    background = '#754083'
+    style = 'diamond'
+    trailing_diamond = ''
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = '{{ if .Root }}#{{ else }}${{ end }}'
+    background_templates = ['{{ if .Root }}#771111{{ end }}']
+
+[[tooltips]]
+  tips = ['pydoc3', 'python', 'python3', 'uv', 'pip', 'pip3']
+  type = 'python'
+  template = ' {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}'
+  foreground = '#efdcf9'
+  background = '#341948'
+  style = 'diamond'
+  leading_diamond = ''
+  trailing_diamond = ''
+
+[[tooltips]]
+  tips = ['node', 'bun']
+  type = 'node'
+  template = '{{ .PackageManagerIcon }} {{ .PackageManagerName }} {{ .Full }}'
+  foreground = '#efdcf9'
+  background = '#341948'
+  style = 'diamond'
+  leading_diamond = ''
+  trailing_diamond = ''
+  [tooltips.properties]
+    display_mode = 'always'
+    fetch_package_manager = true

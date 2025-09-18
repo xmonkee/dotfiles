@@ -16,22 +16,22 @@ C-l = "goto_previous_buffer"
 G = "goto_file_end"
 D = "@t<ret>d"
 V = ["extend_line_below", "select_mode"]
-"*" = ["move_prev_word_start", "move_next_word_end", "search_selection"]
 
 [keys.normal.g]
 "]" = "goto_definition"
 
 [keys.select]
 V = ["extend_line_below"]
+G = "extend_to_file_end"
 
 [keys.insert]
 C-s = [":w", "normal_mode"]
 
 [keys.normal."space"."space"]
 w = ":write"
-c = ":buffer-close"
+d = ":buffer-close"
 q = ":q"
 k = ":buffer-previous"
 j = ":buffer-next"
-o = ":config-open"
+c = ":config-open"
 r = ":config-reload"
