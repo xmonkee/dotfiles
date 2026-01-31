@@ -13,21 +13,21 @@ bindkey -v
 # ------------------------------------------------------------------------------
 # Prompt setup
 # ------------------------------------------------------------------------------
-#setopt PROMPT_SUBST
-#source $HOME/dotfiles/.git-prompt.sh
+setopt PROMPT_SUBST
+source $HOME/dotfiles/.git-prompt.sh
 
-#NEWLINE=$'\n'
-#PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
-#PS1_PRE+=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}]%f" # timestamp
-#PS1_PRE+="%0(?..%F{red} %?%f)" # exit status
-#PS1_PRE+="%1(j.%F{green} %j%f.)" # suspended jobs
-#PS1_PRE+="%F{green}" # suspended jobs
-#PS1_POST="%f"$NEWLINE"$ "
-#precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" " <%s>" }
+NEWLINE=$'\n'
+PS1_PRE="%F{cyan}%n@%m%f %F{yellow}[%3c]%f"  # user@hostname [three/dir/levels]
+PS1_PRE+=" %F{magenta}[%D{%f/%m/%y} | %D{%L:%M:%S}]%f" # timestamp
+PS1_PRE+="%0(?..%F{red} %?%f)" # exit status
+PS1_PRE+="%1(j.%F{green} %j%f.)" # suspended jobs
+PS1_PRE+="%F{green}" # suspended jobs
+PS1_POST="%f"$NEWLINE"$ "
+precmd () { __git_ps1 "$PS1_PRE" "$PS1_POST" " <%s>" }
 
-if builtin which oh-my-posh > /dev/null; then
-	eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh.toml)"
-fi
+#if builtin which oh-my-posh > /dev/null; then
+	#eval "$(oh-my-posh init zsh -c ~/.config/oh-my-posh.toml)"
+#fi
 
 # Set title to directory or last command
 # precmd() { print -Pn "\e]0;%3/\a" }
@@ -38,9 +38,9 @@ PATH="/opt/homebrew/opt/libpq/bin:$PATH" # For PostgreSQL
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH" # Bun an PATH should be BUN_INSTALL/bin
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/share/node/bin:$PATH"
-export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:$PATH"
-export PATH="$HOME/.local/node_modules/bin:$PATH"
+#export PATH="$HOME/.local/share/node/bin:$PATH"
+#export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:$PATH"
+#export PATH="$HOME/.local/node_modules/bin:$PATH"
 
 # ------------------------------------------------------------------------------
 # FZF (Fuzzy Finder)
@@ -48,6 +48,21 @@ export PATH="$HOME/.local/node_modules/bin:$PATH"
 # Source fzf definitions if the file exists
 if [ -f ~/.fzf.zsh ]; then
   source ~/.fzf.zsh
+		__fzf_git_commit_sha() {
+		setopt localoptions pipefail no_aliases 2> /dev/null
+		git log --color=always -n 50 --format='%C(auto)%h%d %s %C(black)%C(bold)%cr' |
+			FZF_DEFAULT_OPTS="--ansi --no-sort --tiebreak=index --reverse \
+				--preview 'git show --color=always {1}' ${FZF_DEFAULT_OPTS-}" $(__fzfcmd) -m "$@" |
+			sed -r -e 's/([0-9a-f]+) .+/\1/' -e 's/.+ ([0-9a-f]+)/\1/'
+	}
+	fzf-git-commit-sha-widget() {
+		LBUFFER="${LBUFFER}$(__fzf_git_commit_sha)"
+		local ret=$?
+		zle reset-prompt
+		return $ret
+	}
+	zle -N fzf-git-commit-sha-widget
+	bindkey '^G' fzf-git-commit-sha-widget
 fi
 
 # ------------------------------------------------------------------------------
@@ -153,7 +168,7 @@ setopt HIST_FIND_NO_DUPS    # When searching, don't show duplicates next to each
 # ------------------------------------------------------------------------------
 # Keybinding for completion in vi insert mode
 bindkey -M viins '\C-i' complete-word
-bindkey -M vicmd e edit-command-line
+bindkey -M vicmd '?' edit-command-line
 
 # Use a cache for completion results (can sometimes improve responsiveness)
 zstyle ':completion::complete:*' use-cache true
@@ -208,11 +223,13 @@ zstyle ':completion:*' ignore-parents parent pwd
 #if (( $+commands[starship] )); then
 	#eval "$(starship init zsh)"
 #fi
+if builtin which mise > /dev/null; then
+	eval "$(mise activate zsh)"
+fi
 
 # ------------------------------------------------------------------------------
 # Aliases
 # ------------------------------------------------------------------------------
-alias claude="/Users/mayank/.claude/local/claude"
 alias vim=nvim
 alias lg=lazygit
 
