@@ -239,11 +239,11 @@ fi
 # ------------------------------------------------------------------------------
 alias vim=nvim
 alias lg=lazygit
-
+export EDITOR=vim
+#
 # ------------------------------------------------------------------------------
 # Finalize Profiling (leave this at the very end)
 # ------------------------------------------------------------------------------
-# zprof
 
-if [ -e /home/xmonkee/.nix-profile/etc/profile.d/nix.sh ]; then . /home/xmonkee/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
-export EDITOR=vim
+
+# zprof
